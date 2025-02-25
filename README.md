@@ -1,3 +1,5 @@
+<center><img src="https://github.com/markmesquita/zip2commit/blob/main/images/logo.png" alt="Zip 2 Commit" /></center>
+
 # Zip2Commit
 
 O Zip2Commit é uma extensão para o Visual Studio Code que facilita a compactação dos arquivos modificados em um commit específico do Git. Após a instalação, a extensão é carregada automaticamente e adiciona um botão na barra de status. Basta clicar no botão, inserir o hash do commit e a extensão gera um arquivo ZIP com os arquivos alterados, nomeado de acordo com o branch correspondente.
