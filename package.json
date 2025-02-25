@@ -6,7 +6,8 @@
   "icon": "images/logo.png",
   "author": {
     "name": "Mark Mesquita",
-    "url": "https://github.com/markmesquita",
+      "url": "https://github.com/markmesquita"
+    },
   "repository": {
     "type": "git",
     "url": "https://github.com/markmesquita/zip2commit"
