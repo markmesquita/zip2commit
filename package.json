@@ -2,7 +2,7 @@
   "name": "zip2commit",
   "displayName": "Zip2Commit",
   "description": "Compress the committed files on the current branch.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "icon": "images/logo.png",
   "author": {
     "name": "Mark Mesquita",
@@ -24,6 +24,17 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Zip2Commit",
+      "properties": {
+        "zip2commit.bashPath": {
+          "type": "string",
+          "default": "",
+          "description": "Caminho para o executável do Git Bash no Windows. Se vazio, a extensão tentará detectar automaticamente."
+        }
+      }
+    },
     "commands": [
       {
         "command": "extension.zipCommitFiles",

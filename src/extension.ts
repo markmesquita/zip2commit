@@ -1,5 +1,29 @@
 import * as vscode from 'vscode';
+import * as fs from 'fs';
+import * as path from 'path';
 
+function getBashPath(): string {
+	// Verifica se o usuário definiu um caminho na configuração
+	const configBashPath = vscode.workspace.getConfiguration("zip2commit").get<string>("bashPath");
+	if (configBashPath && fs.existsSync(configBashPath)) {
+		return configBashPath;
+	}
+
+	// Lista de caminhos candidatos onde o Git Bash pode estar instalado
+	const candidatePaths = [
+		"C:\\Program Files\\Git\\bin\\bash.exe",
+		path.join(process.env.USERPROFILE || "", "AppData", "Local", "Programs", "Git", "bin", "bash.exe")
+	];
+
+	for (const candidate of candidatePaths) {
+		if (fs.existsSync(candidate)) {
+			return candidate;
+		}
+	}
+
+	// Se não encontrar, retorne o primeiro caminho padrão (pode ser necessário notificar o usuário)
+	return "C:\\Program Files\\Git\\bin\\bash.exe";
+}
 export function activate(context: vscode.ExtensionContext) {
 	const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
 	statusBarItem.text = '$(archive) Zip Commit';
@@ -33,9 +57,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// Detecta a plataforma e define o shell adequado
 		const isWindows = process.platform === 'win32';
-		const shellPath = isWindows
-			? "C:\\Program Files\\Git\\bin\\bash.exe"  // caminho padrão para o Git Bash no Windows
-			: "/bin/bash";
+		const shellPath = isWindows ? getBashPath() : "/bin/bash";
 
 		const terminal = vscode.window.createTerminal({ name: 'Zip Commit', shellPath: shellPath, cwd: workspacePath });
 		terminal.show();
