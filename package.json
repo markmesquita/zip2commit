@@ -2,7 +2,7 @@
   "name": "zip2commit",
   "displayName": "Zip2Commit",
   "description": "Compress the committed files on the current branch.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "icon": "images/logo.png",
   "author": {
     "name": "Mark Mesquita",
