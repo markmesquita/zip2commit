@@ -46,16 +46,28 @@ export function activate(context: vscode.ExtensionContext) {
 		let shellPath: string;
 
 		if (process.platform === 'win32') {
-			// Utiliza o PowerShell para compactação nativa no Windows.
+			// Utiliza o PowerShell nativo para Windows e preserva a estrutura de pastas.
 			shellPath = "powershell.exe"; // Ou "pwsh.exe", se preferir o PowerShell Core.
 			command = `
 $commitHash = "${commitHash}"
 $branch = (git branch --contains $commitHash --format="%(refname:short)" | Select-Object -First 1).Trim()
 Remove-Item -ErrorAction SilentlyContinue "$branch.zip"
+$tempDir = Join-Path $env:TEMP ("zip2commit_" + [guid]::NewGuid().ToString())
+New-Item -ItemType Directory -Path $tempDir | Out-Null
 $files = git diff-tree --no-commit-id --name-only -r -m $commitHash
 if ($files.Trim()) {
     $fileList = $files -split "\r?\n" | ForEach-Object { $_.Trim() }
-    Compress-Archive -Path $fileList -DestinationPath "$branch.zip"
+    foreach ($file in $fileList) {
+         $source = Resolve-Path $file
+         $dest = Join-Path $tempDir $file
+         $destDir = Split-Path $dest -Parent
+         if (!(Test-Path $destDir)) {
+             New-Item -ItemType Directory -Path $destDir -Force | Out-Null
+         }
+         Copy-Item $source -Destination $dest -Force
+    }
+    Compress-Archive -Path (Join-Path $tempDir "*") -DestinationPath "$branch.zip"
+    Remove-Item -Recurse -Force $tempDir
 } else {
     Write-Output "No files to compress"
 }
