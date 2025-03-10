@@ -64,8 +64,11 @@ vsce package
 A extensão executa os seguintes passos:
 
 - Identificação do Branch: Usa o comando git branch --contains para determinar o branch que contém o commit informado.
+- Sanitização do Nome: Substitui caracteres inválidos no nome do branch (como `/`, `\`, `:`, `*`, `?`, `"`, `<`, `>`, `|`) por underscores (`_`) para garantir que o nome do arquivo ZIP seja válido em todos os sistemas operacionais.
+- Checkout Temporário: Faz checkout na branch que contém o commit para garantir acesso aos arquivos corretos.
 - Listagem de Arquivos: Utiliza git diff-tree --no-commit-id --name-only -r -m para listar os arquivos modificados no commit.
 - Geração do ZIP: Remove eventuais arquivos ZIP existentes com o mesmo nome e compacta os arquivos listados, gerando o ZIP na raiz do repositório.
+- Retorno à Branch Original: Após a compactação, a extensão retorna automaticamente à branch em que você estava trabalhando.
 
 ##### Contribuição
 
