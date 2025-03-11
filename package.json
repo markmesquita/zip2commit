@@ -1,8 +1,8 @@
 {
   "name": "zip2commit",
   "displayName": "Zip2Commit",
-  "description": "Compress the committed files on the current branch.",
-  "version": "0.0.6",
+  "description": "Compress files from a specific commit into a ZIP file.",
+  "version": "1.0.0",
   "icon": "images/logo.png",
   "author": {
     "name": "Mark Mesquita",
@@ -19,6 +19,13 @@
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "git",
+    "zip",
+    "commit",
+    "archive",
+    "export"
+  ],
   "activationEvents": [
     "onStartupFinished"
   ],
@@ -31,14 +38,14 @@
         "zip2commit.bashPath": {
           "type": "string",
           "default": "",
-          "description": "Caminho para o executável do Git Bash no Windows. Se vazio, a extensão tentará detectar automaticamente."
+          "description": "Path to Git Bash executable on Windows. If empty, the extension will try to detect it automatically."
         }
       }
     },
     "commands": [
       {
         "command": "extension.zipCommitFiles",
-        "title": "Zip arquivos do commit"
+        "title": "Zip Commit Files"
       }
     ]
   },

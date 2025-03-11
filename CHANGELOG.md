@@ -4,13 +4,17 @@ All notable changes to the "zip2commit" extension will be documented in this fil
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [0.0.6] - Próximo lançamento
+## [1.0.0] - 2023-07-15
 
-- Adicionada sanitização de nomes de branches para garantir que o arquivo ZIP seja criado com um nome válido
-- Caracteres inválidos em nomes de arquivos (como `/`, `\`, `:`, `*`, `?`, `"`, `<`, `>`, `|`) são substituídos por underscores (`_`)
-- Melhorado o processo de obtenção de arquivos para fazer checkout na branch correta antes de compactar os arquivos
-- Adicionada funcionalidade para retornar automaticamente à branch original após a compactação
+- Complete code refactoring with componentization for better maintainability
+- English translation of all code and documentation
+- Added branch name sanitization to ensure the ZIP file is created with a valid name
+- Invalid characters in filenames (such as `/`, `\`, `:`, `*`, `?`, `"`, `<`, `>`, `|`) are replaced with underscores (`_`)
+- Improved file retrieval process to checkout to the correct branch before compressing files
+- Added functionality to automatically return to the original branch after compression
+- Enhanced error handling and logging
+- Added support for international collaboration
 
-## [0.0.5] - Lançamento atual
+## [0.0.5] - Initial release
 
-- Initial release
+- Basic functionality to compress files from a specific commit

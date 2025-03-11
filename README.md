@@ -2,79 +2,77 @@
 
 # Zip2Commit
 
-O Zip2Commit é uma extensão para o Visual Studio Code que facilita a compactação dos arquivos modificados em um commit específico do Git. Após a instalação, a extensão é carregada automaticamente e adiciona um botão na barra de status. Basta clicar no botão, inserir o hash do commit e a extensão gera um arquivo ZIP com os arquivos alterados, nomeado de acordo com o branch correspondente.
+Zip2Commit is a Visual Studio Code extension that makes it easy to compress files modified in a specific Git commit. After installation, the extension loads automatically and adds a button to the status bar. Simply click the button, enter the commit hash, and the extension generates a ZIP file with the modified files, named according to the corresponding branch.
 
-#### Funcionalidades
+#### Features
 
-- Ativação Automática: A extensão é carregada assim que o VSCode inicia, sem a necessidade de acionar manualmente nenhum comando.
-- Botão na Barra de Status: Um ícone "Zip Commit" fica disponível na barra de status para acesso rápido.
-- Input Interativo: Ao clicar no botão, é exibido um prompt para você informar o hash do commit.
-- Integração com Git: A extensão identifica o branch que contém o commit e utiliza comandos Git para listar os arquivos modificados.
-- Geração do ZIP: Compacta os arquivos alterados e gera um arquivo ZIP na raiz do workspace, com o nome do branch.
+- Automatic Activation: The extension loads as soon as VSCode starts, without the need to manually trigger any command.
+- Status Bar Button: A "Zip Commit" icon is available in the status bar for quick access.
+- Interactive Input: When you click the button, a prompt is displayed for you to enter the commit hash.
+- Git Integration: The extension identifies the branch containing the commit and uses Git commands to list the modified files.
+- ZIP Generation: Compresses the modified files and generates a ZIP file in the workspace root, with the branch name.
 
-#### Instalação
+#### Installation
 
 ##### Via VSCode Marketplace
 
-1. Abra o VSCode e vá até a aba de Extensões (ou use Ctrl+Shift+X).
-2. Pesquise por Zip2Commit.
-3. Clique em Instalar.
-   <i> Após a instalação, a extensão é ativada automaticamente e o botão "Zip Commit" aparece na barra de status.</i>
+1. Open VSCode and go to the Extensions tab (or use Ctrl+Shift+X).
+2. Search for Zip2Commit.
+3. Click Install.
+   <i>After installation, the extension is automatically activated and the "Zip Commit" button appears in the status bar.</i>
 
 ##### Via GitHub
 
-1. Clone ou baixe o repositório do GitHub.
-2. No terminal, instale as dependências e 3. compile a extensão:
+1. Clone or download the repository from GitHub.
+2. In the terminal, install the dependencies and compile the extension:
 
 ```bash
-Copy
 npm install
 npm run compile
 ```
 
-3. Empacote a extensão usando o vsce:
+3. Package the extension using vsce:
 
 ```bash
-Copy
 vsce package
 ```
 
-4. No VSCode, abra a paleta de comandos (Ctrl+Shift+P) e selecione Extensions: Install from VSIX..., escolhendo o arquivo .vsix gerado.
+4. In VSCode, open the command palette (Ctrl+Shift+P) and select Extensions: Install from VSIX..., choosing the generated .vsix file.
 
-##### Requisitos
+##### Requirements
 
-- Git: Certifique-se de que o Git esteja instalado e configurado corretamente no seu sistema.
-- Bash: A extensão utiliza o shell Bash para execução dos comandos. No Windows, recomenda-se o uso do Git Bash.
-- Workspace Git: O diretório aberto no VSCode precisa ser um repositório Git válido.
+- Git: Make sure Git is installed and properly configured on your system.
+- Bash: The extension uses the Bash shell to execute commands. On Windows, it's recommended to use Git Bash.
+- Git Workspace: The directory opened in VSCode must be a valid Git repository.
 
-##### Como Usar
+##### How to Use
 
-1. Abra o Projeto: Inicie o VSCode com um workspace que contenha um repositório Git.
-2. Botão na Barra de Status: Assim que o VSCode carregar, a extensão ativa automaticamente e exibe o botão Zip Commit na barra de status.
-3. Executar a Compactação:
+1. Open the Project: Start VSCode with a workspace containing a Git repository.
+2. Status Bar Button: As soon as VSCode loads, the extension automatically activates and displays the Zip Commit button in the status bar.
+3. Execute Compression:
 
-   - Clique no botão.
-   - Insira o hash do commit no prompt que será exibido.
-   - Um terminal integrado será aberto e o comando será executado, gerando um arquivo ZIP com os arquivos modificados no commit informado.
+   - Click the button.
+   - Enter the commit hash in the prompt that will be displayed.
+   - An integrated terminal will open and the command will be executed, generating a ZIP file with the files modified in the specified commit.
 
-4. Resultado: O arquivo ZIP será salvo na raiz do seu workspace, com o nome do branch correspondente ao commit.
+4. Result: The ZIP file will be saved in the root of your workspace, with the name of the branch corresponding to the commit.
 
-##### Como Funciona
+##### How It Works
 
-A extensão executa os seguintes passos:
+The extension executes the following steps:
 
-- Identificação do Branch: Usa o comando git branch --contains para determinar o branch que contém o commit informado.
-- Sanitização do Nome: Substitui caracteres inválidos no nome do branch (como `/`, `\`, `:`, `*`, `?`, `"`, `<`, `>`, `|`) por underscores (`_`) para garantir que o nome do arquivo ZIP seja válido em todos os sistemas operacionais.
-- Checkout Temporário: Faz checkout na branch que contém o commit para garantir acesso aos arquivos corretos.
-- Listagem de Arquivos: Utiliza git diff-tree --no-commit-id --name-only -r -m para listar os arquivos modificados no commit.
-- Geração do ZIP: Remove eventuais arquivos ZIP existentes com o mesmo nome e compacta os arquivos listados, gerando o ZIP na raiz do repositório.
-- Retorno à Branch Original: Após a compactação, a extensão retorna automaticamente à branch em que você estava trabalhando.
+- Branch Identification: Uses the git branch --contains command to determine the branch containing the specified commit.
+- Name Sanitization: Replaces invalid characters in the branch name (such as `/`, `\`, `:`, `*`, `?`, `"`, `<`, `>`, `|`) with underscores (`_`) to ensure the ZIP filename is valid on all operating systems.
+- Temporary Checkout: Checks out to the branch containing the commit to ensure access to the correct files.
+- File Listing: Uses git diff-tree --no-commit-id --name-only -r -m to list the files modified in the commit.
+- ZIP Generation: Removes any existing ZIP files with the same name and compresses the listed files, generating the ZIP in the repository root.
+- Return to Original Branch: After compression, the extension automatically returns to the branch you were working on.
 
-##### Contribuição
+##### Contributing
 
-Contribuições, sugestões e correções são bem-vindas!
-Sinta-se à vontade para abrir issues ou enviar pull requests no repositório GitHub.
+Contributions, suggestions, and corrections are welcome!
+Feel free to open issues or send pull requests on the GitHub repository.
 
-##### Licença
+##### License
 
-Este projeto está licenciado sob a [MIT License](https://github.com/markmesquita/zip2commit/blob/main/LICENSE).
+This project is licensed under the [MIT License](https://github.com/markmesquita/zip2commit/blob/main/LICENSE).
